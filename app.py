@@ -29,6 +29,17 @@ class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
+# ------------------ DATABASE INIT (IMPORTANT FIX) ------------------
+
+with app.app_context():
+    db.create_all()
+
+    if Charity.query.count() == 0:
+        db.session.add(Charity(name="Help Children"))
+        db.session.add(Charity(name="Save Environment"))
+        db.session.add(Charity(name="Education Fund"))
+        db.session.commit()
+
 # ------------------ ROUTES ------------------
 
 @app.route('/')
@@ -154,17 +165,13 @@ def run_draw():
 
     user_id = session['user_id']
 
-    # Get user scores
     scores = Score.query.filter_by(user_id=user_id).all()
     user_scores = [s.score for s in scores]
 
-    # Generate draw numbers
     draw_numbers = [random.randint(1, 45) for _ in range(5)]
 
-    # Find matches
     matches = list(set(user_scores) & set(draw_numbers))
 
-    # Reward logic
     reward = ""
     if len(matches) >= 3:
         reward = "🎉 Congratulations! You win a reward!"
@@ -179,27 +186,9 @@ def run_draw():
         reward=reward
     )
 
-
 # ------------------ LOGOUT ------------------
 
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
-
-# ------------------ MAIN ------------------
-
-# ------------------ MAIN ------------------
-
-if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
-
-        # ✅ Add default charities if not exist
-        if Charity.query.count() == 0:
-            db.session.add(Charity(name="Help Children"))
-            db.session.add(Charity(name="Save Environment"))
-            db.session.add(Charity(name="Education Fund"))
-            db.session.commit()
-
-    app.run(debug=True)
