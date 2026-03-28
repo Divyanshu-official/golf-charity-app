@@ -19,7 +19,7 @@
             border-radius: 10px;
         }
 
-        input, button {
+        input, button, select {
             padding: 10px;
             margin: 5px;
             border-radius: 5px;
@@ -48,6 +48,10 @@
             margin-top: 20px;
             display: inline-block;
             color: red;
+        }
+
+        .admin-btn {
+            background-color: orange;
         }
     </style>
 </head>
@@ -88,12 +92,17 @@
         <button type="submit">Add</button>
     </form>
 
-    <!-- ✅ RUN DRAW BUTTON ADDED -->
+    <!-- Run Draw -->
     <br>
     <a href="/run_draw">
         <button>Run Draw 🎯</button>
     </a>
+
+    <!-- Admin Button -->
     <br><br>
+    <a href="/admin">
+        <button class="admin-btn">Admin Panel 👨‍💼</button>
+    </a>
 
     <!-- Scores -->
     <h3>Your Scores</h3>
@@ -103,6 +112,7 @@
         {% endfor %}
     </ul>
 
+    <!-- Logout -->
     <a href="/logout" class="logout">Logout</a>
 
 </div>
