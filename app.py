@@ -29,7 +29,7 @@ class Charity(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100))
 
-# ------------------ DATABASE INIT (IMPORTANT FIX) ------------------
+# ------------------ DATABASE INIT ------------------
 
 with app.app_context():
     db.create_all()
@@ -149,12 +149,12 @@ def select_charity():
     db.session.commit()
     return redirect(url_for('dashboard'))
 
-# ------------------ ADMIN ------------------
+# ------------------ ADMIN (UPDATED ✅) ------------------
 
 @app.route('/admin')
 def admin():
     users = User.query.all()
-    return "<br>".join([u.name + " - " + u.email for u in users])
+    return render_template('admin.html', users=users)
 
 # ------------------ DRAW SYSTEM ------------------
 
