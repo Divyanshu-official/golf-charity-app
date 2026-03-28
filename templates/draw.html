@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Draw Result</title>
+</head>
+<body style="background:black; color:white; text-align:center;">
+
+<h2>🎯 Draw Numbers</h2>
+<h3>
+    {% for n in draw_numbers %}
+        {{ n }} |
+    {% endfor %}
+</h3>
+
+<h2>Your Scores</h2>
+<h3>
+    {% for s in user_scores %}
+        {{ s }} |
+    {% endfor %}
+</h3>
+
+<h2>Matched Numbers</h2>
+<h3>
+    {% for m in matches %}
+        {{ m }} |
+    {% endfor %}
+</h3>
+
+<h2>{{ reward }}</h2>
+
+<br>
+<a href="/dashboard">Back to Dashboard</a>
+
+</body>
+</html>
